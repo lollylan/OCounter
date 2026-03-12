@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCounter</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>OCounter</h1>
+      <nav>
+        <button class="nav-btn active" data-view="log">Log</button>
+        <button class="nav-btn" data-view="stats">Statistik</button>
+        <button class="nav-btn" data-view="calendar">Kalender</button>
+        <button class="nav-btn" data-view="settings">Settings</button>
+      </nav>
+    </header>
+
+    <!-- LOG VIEW -->
+    <section id="view-log" class="view active">
+      <h2>Neuen Eintrag loggen</h2>
+      <div id="category-buttons" class="category-grid"></div>
+
+      <h2>Verlauf</h2>
+      <div class="filter-bar">
+        <select id="filter-category">
+          <option value="">Alle Kategorien</option>
+        </select>
+        <input type="date" id="filter-date">
+        <button id="filter-clear" class="btn-small">Filter zur&uuml;cksetzen</button>
+      </div>
+      <ul id="entry-list" class="entry-list"></ul>
+    </section>
+
+    <!-- STATS VIEW -->
+    <section id="view-stats" class="view">
+      <h2>Statistik</h2>
+      <div class="stats-period">
+        <button class="period-btn active" data-period="all">Gesamt</button>
+        <button class="period-btn" data-period="month">Monat</button>
+        <button class="period-btn" data-period="week">Woche</button>
+      </div>
+      <div class="chart-container">
+        <canvas id="pie-chart"></canvas>
+      </div>
+      <div id="stats-summary" class="stats-summary"></div>
+    </section>
+
+    <!-- CALENDAR VIEW -->
+    <section id="view-calendar" class="view">
+      <div class="calendar-nav">
+        <button id="cal-prev" class="btn-icon">&larr;</button>
+        <h2 id="cal-title"></h2>
+        <button id="cal-next" class="btn-icon">&rarr;</button>
+      </div>
+      <div class="calendar-grid">
+        <div class="cal-header">Mo</div>
+        <div class="cal-header">Di</div>
+        <div class="cal-header">Mi</div>
+        <div class="cal-header">Do</div>
+        <div class="cal-header">Fr</div>
+        <div class="cal-header">Sa</div>
+        <div class="cal-header">So</div>
+      </div>
+      <div id="cal-days" class="calendar-grid calendar-days"></div>
+    </section>
+
+    <!-- SETTINGS VIEW -->
+    <section id="view-settings" class="view">
+      <h2>Kategorien verwalten</h2>
+      <ul id="category-list" class="category-manage-list"></ul>
+      <div class="add-category">
+        <input type="text" id="new-category-name" placeholder="Neue Kategorie...">
+        <input type="color" id="new-category-color" value="#6c5ce7">
+        <button id="add-category-btn" class="btn">Hinzuf&uuml;gen</button>
+      </div>
+
+      <h2>Daten</h2>
+      <div class="data-actions">
+        <button id="export-btn" class="btn">Daten exportieren (JSON)</button>
+        <button id="import-btn" class="btn">Daten importieren</button>
+        <input type="file" id="import-file" accept=".json" hidden>
+        <button id="reset-btn" class="btn btn-danger">Alle Daten zur&uuml;cksetzen</button>
+      </div>
+    </section>
+
+    <!-- EDIT MODAL -->
+    <div id="edit-modal" class="modal" hidden>
+      <div class="modal-content">
+        <h3>Eintrag bearbeiten</h3>
+        <label>Kategorie
+          <select id="edit-category"></select>
+        </label>
+        <label>Datum & Uhrzeit
+          <input type="datetime-local" id="edit-datetime">
+        </label>
+        <label>Notiz
+          <input type="text" id="edit-note" placeholder="Optional...">
+        </label>
+        <div class="modal-actions">
+          <button id="edit-save" class="btn">Speichern</button>
+          <button id="edit-cancel" class="btn btn-secondary">Abbrechen</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY DETAIL MODAL -->
+    <div id="day-modal" class="modal" hidden>
+      <div class="modal-content">
+        <h3 id="day-modal-title"></h3>
+        <ul id="day-modal-list" class="entry-list"></ul>
+        <div class="modal-actions">
+          <button id="day-modal-close" class="btn btn-secondary">Schlie&szlig;en</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
