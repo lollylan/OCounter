@@ -562,6 +562,35 @@ h2 {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
+/* Install Banner */
+.install-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #6c5ce722, #fd79a822);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+}
+
+.install-banner[hidden] { display: none; }
+
+.install-banner span { flex: 1; }
+
+.install-banner .btn { padding: 8px 14px; font-size: 0.8rem; white-space: nowrap; }
+
+.install-banner .btn-icon {
+  width: 28px;
+  height: 28px;
+  font-size: 1.1rem;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
 @media (max-width: 400px) {
   .category-grid { grid-template-columns: 1fr; }
   .stats-summary { grid-template-columns: 1fr; }

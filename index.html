@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OCounter</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6c5ce7">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
 <body>
@@ -18,6 +22,13 @@
         <button class="nav-btn" data-view="settings">Settings</button>
       </nav>
     </header>
+
+    <!-- INSTALL BANNER -->
+    <div id="install-banner" class="install-banner" hidden>
+      <span>App installieren f&uuml;r schnellen Zugriff</span>
+      <button id="install-btn" class="btn">Installieren</button>
+      <button id="install-dismiss" class="btn-icon">&times;</button>
+    </div>
 
     <!-- LOG VIEW -->
     <section id="view-log" class="view active">
@@ -120,5 +131,10 @@
   </div>
 
   <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
+  </script>
 </body>
 </html>

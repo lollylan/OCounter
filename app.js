@@ -544,6 +544,34 @@
     initAll();
   });
 
+  // ── PWA Install ───────────────────────────────────────────────
+  let deferredPrompt = null;
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    $('#install-banner').hidden = false;
+  });
+
+  $('#install-btn').addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const result = await deferredPrompt.userChoice;
+    if (result.outcome === 'accepted') {
+      $('#install-banner').hidden = true;
+    }
+    deferredPrompt = null;
+  });
+
+  $('#install-dismiss').addEventListener('click', () => {
+    $('#install-banner').hidden = true;
+  });
+
+  window.addEventListener('appinstalled', () => {
+    $('#install-banner').hidden = true;
+    deferredPrompt = null;
+  });
+
   // ── Init ─────────────────────────────────────────────────────
   function initAll() {
     renderCategoryButtons();
